@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicios DOM</title>
+    <style>
+        .resaltado {
+            background-color: yellow;
+            font-weight: bold;
+        }
+        .caja {
+            border: 1px solid black;
+            padding: 10px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="tituloPrincipal">Manipulación del DOM</h1>
+    <p id="parrafoIntro">Este es un párrafo introductorio.</p>
+
+    <div class="caja">
+        <p>Primer párrafo dentro de una caja.</p>
+        <button id="botonCambiar" onclick="cambiarTexto()">Cambiar Texto del Párrafo</button>
+    </div>
+
+    <div class="caja importante">
+        <p>Segundo párrafo, también en una caja.</p>
+        <img id="imagenDemo" src="imagen_original.jpg" alt="Imagen de demostración">
+    </div>
+
+    <ul id="listaItems">
+        <li class="item">Elemento 1</li>
+        <li class="item importante">Elemento 2</li>
+        <li class="item">Elemento 3</li>
+    </ul>
+
+    <input type="text" id="entradaUsuario" placeholder="Escribe algo aquí">
+    <button id="botonMostrar" onclick="mostrarEntrada()">Mostrar Entrada</button>
+    <p id="textoMostrado"></p>
+
+    <script src="script.js"></script> </body>
+</html>
