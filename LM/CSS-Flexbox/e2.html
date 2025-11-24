@@ -1,1 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
 
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.container {
+  display: flex;
+  background-color: dodgerblue;
+}
+
+.container div {
+  background-color: #f1f1f1;
+  color:#000;
+  height: 150px;
+  width: 100px;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  font-size: 30px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+}
+</style>
+</head>
+<body>
+<header style="background-color: red;">
+  <div>Titulo</div>
+  <div>Login</div>
+  <div>Registrarse</div>
+</header>
+<main style="background-color: green; height: 100vh;">
+  <h1>The flex-grow Property</h1>
+
+  <p>Haz que los números dentro de los contenedores estén en la parte inferior de su div correspondiente:</p>
+
+  <div class="container">
+    <div style="flex-grow: 1">1</div>
+    <div style="flex-grow: 2">2</div>
+    <div style="flex-grow: 4">3</div>
+  </div>
+
+</main>
+<footer style="background-color: blue;">
+  <p>© Javier Ibarra</p>
+</footer>
+</body>
+</html>
