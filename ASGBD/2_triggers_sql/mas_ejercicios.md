@@ -1,4 +1,5 @@
 # Ejercicios de triggers para la base de datos `clase_bbdd`
+Para hacer estos ejercicios, tendremos que cargar el script de la carperta `/1_scripts_sql`
 
 ## 1. Trigger para actualizar el número de alumnos en un módulo
 Crea un trigger que, al insertar una matrícula en la tabla `matriculas`, incremente el campo `n_alu` del módulo correspondiente en la tabla `modulos`.
