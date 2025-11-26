@@ -6,3 +6,4 @@ btn.addEventListener("click", () => {
     contador.textContent = valor + 1;
 });
 
+document.

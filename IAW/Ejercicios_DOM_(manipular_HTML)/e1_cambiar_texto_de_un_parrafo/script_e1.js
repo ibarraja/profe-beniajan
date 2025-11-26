@@ -1,1 +1,1 @@
-document.getElementById("mensaje").textContent ="Hola desde JavaScript";
+document.getElementById("mensaje").textContent = "Hola desde JavaScript";
