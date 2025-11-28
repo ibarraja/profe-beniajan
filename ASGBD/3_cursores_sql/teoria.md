@@ -37,7 +37,7 @@ Veamos un ejemplo para ilustrar el uso de los cursores:
 
 ```sql
 DELIMITER //
-CREATE PROCEDIRE ejemplo_cursores()
+CREATE PROCEDURE ejemplo_cursores()
 BEGIN
     DECLARE ultima fila INT DEFAULT 0;
     DECLARE ciu VARCHAR(50);
