@@ -39,7 +39,7 @@ Veamos un ejemplo para ilustrar el uso de los cursores:
 DELIMITER //
 CREATE PROCEDURE ejemplo_cursores()
 BEGIN
-   DECLARE ultima fila INT DEFAULT 0;
+   DECLARE ultima_fila INT DEFAULT 0;
    DECLARE ciu VARCHAR(50);
    DECLARE imp DECIMAL(15,2);
    DECLARE suma_madrid DECIMAL (15,2) DEFAULT 0;
