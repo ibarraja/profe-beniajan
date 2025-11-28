@@ -18,17 +18,17 @@ Un cursor se obtiene para el procesamiento individual de las filas devuelatas po
 Un cursor se define con la siguiente sintaxis:
 ```sql
 DECLARE nombre_cursor CURSOR FOR
-   SELECT columa1, [columna2, ...];
+SELECT columa1, [columna2, ...];
 ```
 Para manipular los cursores disponemos de una serie de instrucciones
 - `OPEN`: inicializa el conjunto de resultados asociados con el cursor.
 - `FETCH`: extrae la siguiente fila de valores del conjunto de resultados del cursor, moviendo su puntero intero a una posición.
 - `CLOSE`: cierra el cursor liberando la memoria que ocupa y haciendo imposible el acceso a cualquiera de sus datos.
-  ```sql
-  OPEN nombre_cursor;
-  FETCH nombre_cursor INTO lista_de_variables;
-  CLOSE nombre_cursor;
-  ``` 
+```sql
+OPEN nombre_cursor;
+FETCH nombre_cursor INTO lista_de_variables;
+CLOSE nombre_cursor;
+``` 
 Uno de los aspectos más importantes al trabajar con cursores es que tenemos que definir un manejador para el error `NOT FOUND` para evitar que nuestra rutina se pare de forma anormal cuando no queden más filas por procesar.
 
 Veamos un ejemplo para ilustrar el uso de los cursores:
@@ -39,40 +39,40 @@ Veamos un ejemplo para ilustrar el uso de los cursores:
 DELIMITER //
 CREATE PROCEDURE ejemplo_cursores()
 BEGIN
-    DECLARE ultima fila INT DEFAULT 0;
-    DECLARE ciu VARCHAR(50);
-    DECLARE imp DECIMAL(15,2);
-    DECLARE suma_madrid DECIMAL (15,2) DEFAULT 0;
-    DECLARE suma_paris decimal(15,2) DEFAULT 0; 
-    DECLARE cursorLimite CURSOR FOR SELECT Ciudad, LimiteCredito FROM jardineria.Clientes; 
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET ultima_fila = 1; 
+   DECLARE ultima fila INT DEFAULT 0;
+   DECLARE ciu VARCHAR(50);
+   DECLARE imp DECIMAL(15,2);
+   DECLARE suma_madrid DECIMAL (15,2) DEFAULT 0;
+   DECLARE suma_paris decimal(15,2) DEFAULT 0; 
+   DECLARE cursorLimite CURSOR FOR SELECT Ciudad, LimiteCredito FROM jardineria.Clientes; 
+   DECLARE CONTINUE HANDLER FOR NOT FOUND SET ultima_fila = 1; 
 
-    /* Creamos la tabla limitecredito */ 
-    DROP TABLE IF EXISTS jardineria.limitecredito; 
-    CREATE TABLE jardineria.limitecredito (ciudad VARCHAR(50) PRIMARY KEY, limite 
-    DECIMAL(15,2)); 
+   /* Creamos la tabla limitecredito */ 
+   DROP TABLE IF EXISTS jardineria.limitecredito; 
+   CREATE TABLE jardineria.limitecredito (ciudad VARCHAR(50) PRIMARY KEY, limite 
+   DECIMAL(15,2)); 
 
-    /* Procesamos el cursor */ 
-    OPEN cursorLimite; 
-    bucle_cursor: LOOP 
-        FETCH cursorLimite INTO ciu, imp; 
-        
-        IF ultima_fila = 1 THEN  
+   /* Procesamos el cursor */ 
+   OPEN cursorLimite; 
+      bucle_cursor: LOOP 
+      FETCH cursorLimite INTO ciu, imp; 
+   
+         IF ultima_fila = 1 THEN  
             LEAVE bucle_cursor; 
-        END IF; 
-
-        IF ciu = 'Madrid' THEN 
+         END IF; 
+         
+         IF ciu = 'Madrid' THEN 
             SET suma_madrid = suma_madrid + imp; 
-        ELSEIF ciu = 'Paris' THEN 
+         ELSEIF ciu = 'Paris' THEN 
             SET suma_paris = suma_paris + imp; 
-        END IF; 
-
-    END LOOP bucle_cursor; 
-    CLOSE cursorLimite; 
-
-/* Insertamos los valores obtenidos */ 
-    INSERT INTO jardineria.limitecredito VALUES ('Madrid',suma_madrid); 
-    INSERT INTO jardineria.limitecredito VALUES ('Paris',suma_paris); 
+         END IF; 
+         
+      END LOOP bucle_cursor; 
+   CLOSE cursorLimite; 
+   
+   /* Insertamos los valores obtenidos */ 
+   INSERT INTO jardineria.limitecredito VALUES ('Madrid',suma_madrid); 
+   INSERT INTO jardineria.limitecredito VALUES ('Paris',suma_paris); 
 END; //
 DELIMITER ;
 ```
