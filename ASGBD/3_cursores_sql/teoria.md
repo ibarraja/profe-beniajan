@@ -79,4 +79,4 @@ DELIMITER ;
 
 **NOTA IMPORTANTE**: Debemos evitar declarar variables con el mismo nombre que los campos seleccionados en la definición del cursor. 
 
-Para más información [click en el enlace]([https://wiki.cifprodolfoucha.es/index.php?title=BD_UD7_Cursores](https://wiki.cifprodolfoucha.es/index.php?title=BD_UD7_Cursores#Manejo_de_cursores)
+Para más información [click en el enlace](https://wiki.cifprodolfoucha.es/index.php?title=BD_UD7_Cursores#Manejo_de_cursores)
