@@ -9,7 +9,11 @@ Un cursor se obtiene para el procesamiento individual de las filas devuelatas po
 > 
 > **¿Por qué existe?**
 > Porque a veces la base de datos devuelve miles o millones de filas, y no quieres cargarlas todas de una vez en memoria. Con el cursor, solo trabajas una vez.
-
+>
+> **Caracterísitcas de los curores**
+> - Son de **solo lectura**: Solo sirven para leer datos. Es decir, solo podemos declarar un cursor para leer los datos que provienen de una consulta `SELECT` y nunca podremos modificar los datos de la tabla a través del cursor.
+> - **Acceso secuencial**: La información que va a procesar el cursor (el resultado de un `SELECT`) es secuencial. Vamos a recorrer fila a fila desde la primera a la última de forma secuencial, una detrás de otra y no podremos saltar a una fila cualquiera de forma directa, tendremos que pasar por tadas las anteriores.
+> - Puede crearse dentro de un procedimiento, función o trigger.  
 Un cursor se define con la siguiente sintaxis:
 ```sql
 DECLARE nombre_cursor CURSOR FOR
