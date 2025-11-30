@@ -92,9 +92,9 @@ ORDER BY a.nombre_alu, m.nombre;
 -- Crea un trigger que, al insertar una matrícula en la tabla matriculas, incremente el campo n_alu del módulo correspondiente en la tabla modulos.
 
 DROP TRIGGER IF EXISTS tr_ejer1;
+
 DELIMITER $$
 
-DROP TRIGGER IF EXISTS tr_ejer1;
 CREATE TRIGGER tr_ejer1
 AFTER INSERT ON matriculas
 FOR EACH ROW
@@ -105,15 +105,17 @@ BEGIN
     where id_modulo = new.id_modulo_matriculas;
 
 END $$
-DELIMITER ;
 
-insert into matriculas values (2,1);
+DELIMITER ;
 
 
 -- 2. Trigger para evitar matrículas duplicadas
 -- Crea un trigger que impida insertar una matrícula si el alumno ya está matriculado en ese módulo (además de la restricción de clave primaria).
+
 DROP TRIGGER IF EXISTS tr_ejer2;
+
 DELIMITER $$
+
 CREATE TRIGGER tr_ejer2
 BEFORE INSERT ON matriculas
 FOR EACH ROW
@@ -129,25 +131,32 @@ BEGIN
     SET MESSAGE_TEXT = 'El alumno ya está matriculado en este módulo';
   END IF;
 END$$
+
 DELIMITER ;
 
 -- 3. Trigger para registrar bajas de alumnos
 -- Crea una tabla bajas_alumnos y un trigger que, al eliminar un alumno de la tabla alumnos, registre su información en la tabla de bajas.
 
+CREATE TABLE IF NOT EXISTS bajas_alumnos (
+  id_alumno INT AUTO_INCREMENT,
+  dni VARCHAR(9) NOT NULL,
+  nombre_alu VARCHAR(255) NOT NULL,
+  fecha_baja TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 DROP TRIGGER IF EXISTS tr_ejer3;
 DELIMITER $$
+
 CREATE TRIGGER tr_ejer3
-AFTER Delete ON alumnos
+AFTER DELETE ON alumnos
 FOR EACH ROW
 BEGIN
-  create TABLE bajas_alumnos if not EXISTS (
-    id_alumno   INT PRIMARY KEY,
-    dni         VARCHAR(9)    NOT NULL UNIQUE,
-    nombre_alu  VARCHAR(255)  NOT NULL
-  );
-  insert into bajas_alumnos values (NEW.id_alumno,"NEW.dni","NEW.nombre_alu");
+    INSERT INTO bajas_alumnos (id_alumno, dni, nombre_alu)
+    VALUES (OLD.id_alumno, OLD.dni, OLD.nombre_alu);
 END$$
+
 DELIMITER ;
+
 
 -- 4. Trigger para controlar el máximo de alumnos por módulo
 -- Supón que cada módulo puede tener como máximo 30 alumnos. Crea un trigger que impida nuevas matrículas si el módulo ya tiene 30 alumnos.
@@ -155,20 +164,67 @@ DELIMITER ;
 DROP TRIGGER IF EXISTS tr_ejer4;
 DELIMITER $$
 CREATE TRIGGER tr_ejer4
-BEFORE UPDATE matriculas
+BEFORE INSERT ON matriculas
 FOR EACH ROW
 BEGIN
-  DECLARE VALUES n_alu_matriculados int;
+  
+  DECLARE n_alu_matriculados INT;
     
   SELECT count(id_alumno_matriculas) INTO n_alu_matriculados
   FROM matriculas
-  WHERE id_modulo_matriculas = new.id_modulo_matriculas
+  WHERE id_modulo_matriculas = NEW.id_modulo_matriculas;
 
   IF n_alu_matriculados >= 30 THEN 
     SIGNAL  SQLSTATE '45000'
-    SET MESSAGE_TEXT = 'El alumno ya está matriculado en este módulo';
+    SET MESSAGE_TEXT = 'Este módulo ya tiene matriculado a 30 alumnos!';
   END IF;
 
 
 END$$
+DELIMITER ;
+
+
+-- 5. Trigger para registrar cambios de nombre de alumno:
+-- Crea una tabla cambios_nombre y un trigger que, al actualizar el nombre de un alumno en la tabla alumnos, registre el cambio en la tabla de cambios.
+
+CREATE TABLE IF NOT EXISTS cambios_nombre (
+  id_cambios_nombres INT PRIMARY KEY AUTO_INCREMENT,
+  id_alumno_cambios_nombre INT NOT NULL,
+  nombre_antiguo VARCHAR(50),
+  nombre_nuevo VARCHAR(50),
+  fecha_cambio TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  FOREIGN KEY (id_alumno_cambios_nombre) REFERENCES alumnos(id_alumno)
+);
+
+DROP TRIGGER IF EXISTS tr_ejer5;
+
+DELIMITER $$
+CREATE TRIGGER tr_ejer5
+BEFORE UPDATE ON alumnos
+FOR EACH ROW
+BEGIN
+  
+  IF OLD.nombre_alu != NEW.nombre_alu THEN
+      INSERT INTO cambios_nombre (id_alumno_cambios_nombre, nombre_antiguo, nombre_nuevo)
+      VALUES (OLD.id_alumno, OLD.nombre_alu, NEW.nombre_alu);
+  END IF;
+
+END$$
+DELIMITER ;
+
+-- 6. Trigger para eliminar matrículas asociadas al eliminar un alumno
+-- Crea un trigger que, al eliminar un alumno, elimine automáticamente todas sus matrículas en la tabla matriculas.
+
+DROP TRIGGER IF EXISTS tr_ejer6;
+
+DELIMITER $$
+
+CREATE TRIGGER tr_ejer6
+AFTER DELETE ON alumnos
+FOR EACH ROW
+BEGIN
+    DELETE FROM matriculas
+    WHERE id_alumno_matriculas = OLD.id_alumno;
+END$$
+
 DELIMITER ;
