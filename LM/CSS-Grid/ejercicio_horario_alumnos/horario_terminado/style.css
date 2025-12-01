@@ -1,0 +1,74 @@
+* {
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 10fr 1fr;
+}
+
+header {
+    background-color: blue;
+}
+
+.main {
+    background-color: aquamarine;
+    display: grid;
+    gap: 15px;
+    grid-template-areas: 
+        "LUN  MAR  MIE  JUE  VIE "
+        "ISO  PAR  FHW  PAR1 ING "
+        "ISO  PAR  FHW  LMS  FHW1"
+        "GBD  IPE  GBD1 LMS  PAR2"
+        "REC  REC  REC  REC  REC "
+        "LMS1 IPE1 GBD2 ING1 PAR3"
+        "LMS1 GBD3 ISO1 ISO2 ISO3"
+        "DIG  GBD3 ISO1 IPE2 ISO3"
+    ;
+}
+
+footer { background-color: brown; }
+
+.dia {
+    background-color: black;
+    color: white;
+}
+.modulo { background-color: blueviolet; }
+
+.rec {
+    grid-area: REC;
+    background-color: grey; 
+    height: 30px;
+}
+
+#ISO  { grid-area: ISO; }
+#ISO1 { grid-area: ISO1;}
+#ISO2 { grid-area: ISO2;}
+#ISO3 { grid-area: ISO3;}
+#PAR  { grid-area: PAR; }
+#PAR1 { grid-area: PAR1;}
+#PAR2 { grid-area: PAR2;}
+#PAR3 { grid-area: PAR3;}
+#FHW  { grid-area: FHW; }
+#FHW1 { grid-area: FHW1;}
+#ING  { grid-area: ING; }
+#ING1 { grid-area: ING1;}
+#LMS  { grid-area: LMS; }
+#LMS1 { grid-area: LMS1;}
+#GBD  { grid-area: GBD; }
+#GBD1 { grid-area: GBD1;}
+#GBD2 { grid-area: GBD2;}
+#GBD2 { grid-area: GBD3;}
+#IPE  { grid-area: IPE; }
+#IPE1 { grid-area: IPE1;}
+#IPE2 { grid-area: IPE2;}
+#DIG  { grid-area: DIG;}
+
+#L { grid-area: LUN; }
+#M { grid-area: MAR; }
+#X { grid-area: MIE; }
+#J { grid-area: JUE; }
+#V { grid-area: VIE; }
