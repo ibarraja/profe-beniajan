@@ -1,8 +1,6 @@
 # 🏀 Ejercicios de Cursores en MySQL — Base de Datos NBA
 
-A continuación tienes una colección completa de ejercicios organizados por niveles para aprender a trabajar con **cursores en MySQL**. Puedes copiar este contenido y subirlo directamente a tu GitHub.
 
----
 
 ## 🟦 NIVEL 1 — Primeros cursores
 
