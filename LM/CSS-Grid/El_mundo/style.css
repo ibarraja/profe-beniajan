@@ -1,0 +1,115 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 10fr 1fr;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+}
+
+.header_top {
+    display: grid;
+    grid-template-columns: 2fr 8fr 2fr;
+}
+
+
+.header_top_logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_top_logo a img{
+    height: 100px;
+}
+
+.header_top_login {
+    display: flex;
+    justify-content: end;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style: none;
+    gap: 10px;
+}
+
+.main {
+    display: grid;
+    grid-template-rows: 1fr 1fr 4fr;
+}
+
+.main_top{
+    border-bottom: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_top_directo {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.main_top_podcast {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.main_top_dot {
+    color: red;
+    font-size: 3rem;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.rojo {
+    color: red;
+    font-weight: bold;
+}
+
+.azul {
+    color: blue;
+    font-weight: bold;
+}
+
+footer {
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+}
+
+.footer_top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-bottom: 1px black solid;
+    border-top: 1px black solid;
+    padding: 5px;
+}
+
+.footer_bottom {
+    margin: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.p_negrita_footer {
+    font-weight: bold;
+}
+.p_azul_footer {
+    color: blue;
+}
